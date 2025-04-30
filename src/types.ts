@@ -2,7 +2,7 @@ export type User = {
   id: string;
   firstName?: string;
   lastName: string;
-  dateOfBirth: number;
+  dateOfBirth: string;
 };
 
 export type Users = User[];

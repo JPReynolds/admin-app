@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -6,18 +7,32 @@ import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import DialogActions from "@mui/material/DialogActions";
+import { CreateUserPayload } from "../types";
+import { createUser } from "../lib/api";
 
 export function AddUserDialog() {
     const [isOpen, setIsOpen] = useState(false);
+
+    const queryClient = useQueryClient();
     
     const handleOpen = () => setIsOpen(true);
     const handleClose = () => setIsOpen(false);
 
+    const { mutate } = useMutation({
+        mutationFn: (user: CreateUserPayload) => createUser(user),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["users"] });
+        },
+    });
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
-        const formJson = Object.fromEntries(formData.entries());
-        console.log(formJson);
+        const firstName = formData.get("firstName") as string;
+        const lastName = formData.get("lastName") as string;
+        const dateOfBirth = formData.get("dateOfBirth") as string;
+        const user = { firstName, lastName, dateOfBirth };
+        mutate(user);
         handleClose();
     };
 
@@ -46,7 +61,7 @@ export function AddUserDialog() {
                         required
                     />
                     <DatePicker
-                        name="birthDate"
+                        name="dateOfBirth"
                         label="Birth Date"
                     />
                 </DialogContent>
