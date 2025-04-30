@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { usersOptions } from "../lib/queryOptions";
 import { AddUserDialog } from "./AddUserDialog";
-
+import { UserCard } from "./UserCard";
 export function UserList() {
     const { data } = useQuery(usersOptions());
     return (
@@ -12,7 +12,9 @@ export function UserList() {
             </header>
             <ul>
                 {data?.users.map((user) => (
-                    <li key={user.id}>{user.firstName} {user.lastName}</li>
+                    <li key={user.id}>
+                        <UserCard user={user} />
+                    </li>
                 ))}
             </ul>
         </section>
