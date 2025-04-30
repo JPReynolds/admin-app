@@ -8,7 +8,12 @@ import { DeleteUserDialog } from "./delete-user-dialog";
 
 export function UserCard({ user }: { user: User }) {
     return (
-        <Card>
+        <Card sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            gap: 20,
+        }}>
             <CardContent>
                 <Typography variant="h6">{user.firstName} {user.lastName}</Typography>
                 <Typography variant="body2">{user.dateOfBirth}</Typography>

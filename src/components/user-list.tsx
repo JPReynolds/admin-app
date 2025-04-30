@@ -6,7 +6,7 @@ import { UserCard } from "./user-card";
 export function UserList() {
     const { data } = useQuery(usersOptions());
     return (
-        <section>
+        <section className="user-list">
             <header>
                 <h2>Users</h2>
                 <AddUserDialog />

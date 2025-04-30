@@ -67,7 +67,12 @@ export function AddUserDialog() {
                 }}
             >
                 <DialogTitle>Add User</DialogTitle>
-                <DialogContent>
+                <DialogContent sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                    minWidth: "400px",
+                }}>
                     <TextField
                         name="firstName"
                         label="First Name"
