@@ -2,9 +2,9 @@ import { User } from "../types";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import { EditUserDialog } from "./EditUserDialog";
+import { DeleteUserDialog } from "./DeleteUserDialog";
 export function UserCard({ user }: { user: User }) {
     return (
         <Card>
@@ -14,7 +14,7 @@ export function UserCard({ user }: { user: User }) {
             </CardContent>
             <CardActions>
                 <EditUserDialog user={user} />
-                <Button variant="text" color="secondary">Delete</Button>
+                <DeleteUserDialog userId={user.id} />
             </CardActions>
         </Card>
     );
