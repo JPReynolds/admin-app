@@ -6,3 +6,7 @@ export type User = {
 };
 
 export type Users = User[];
+
+export type CreateUserPayload = Omit<User, "id">;
+
+export type UpdateUserPayload = Partial<Omit<User, "id">> & { id: string };
