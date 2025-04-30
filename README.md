@@ -7,3 +7,6 @@ GET - https://example.com/user/:id - Retrieve user with a certain id
 POST - https://example.com/user - Create a new user. Provide first name  
 PUT - https://example.com/user/:id - Edit a user. Provide first name  
 DELETE - https://example.com/user/:id - Delete a user
+
+## TODO
+- [ ] set up react query
