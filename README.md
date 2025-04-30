@@ -8,3 +8,9 @@ POST - https://example.com/user - Create a new user. Provide first name
 PUT - https://example.com/user/:id - Edit a user. Provide first name  
 DELETE - https://example.com/user/:id - Delete a user
 
+
+## TODO
+- [ ] error handling
+- [ ] loading states
+- [ ] optimistic updates
+- [ ] some styling

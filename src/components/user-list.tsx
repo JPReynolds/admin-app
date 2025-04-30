@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { usersOptions } from "../lib/queryOptions";
-import { AddUserDialog } from "./AddUserDialog";
-import { UserCard } from "./UserCard";
+import { AddUserDialog } from "./add-user-dialog";
+import { UserCard } from "./user-card";
+
 export function UserList() {
     const { data } = useQuery(usersOptions());
     return (
