@@ -3,8 +3,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
-import { EditUserDialog } from "./EditUserDialog";
-import { DeleteUserDialog } from "./DeleteUserDialog";
+import { EditUserDialog } from "./edit-user-dialog";
+import { DeleteUserDialog } from "./delete-user-dialog";
+
 export function UserCard({ user }: { user: User }) {
     return (
         <Card>
