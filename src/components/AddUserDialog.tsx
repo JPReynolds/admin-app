@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ZodError } from "zod";
+import dayjs from "dayjs";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -9,14 +11,20 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import DialogActions from "@mui/material/DialogActions";
 import { CreateUserPayload } from "../types";
 import { createUser } from "../lib/api";
+import { UserFormSchema } from "../lib/validation";
 
 export function AddUserDialog() {
     const [isOpen, setIsOpen] = useState(false);
+    const [errors, setErrors] = useState<ZodError['formErrors']['fieldErrors'] | null>(null);
 
     const queryClient = useQueryClient();
     
     const handleOpen = () => setIsOpen(true);
-    const handleClose = () => setIsOpen(false);
+    const handleClose = () => {
+        setIsOpen(false);
+        setErrors(null);
+    };
+
 
     const { mutate } = useMutation({
         mutationFn: (user: CreateUserPayload) => createUser(user),
@@ -32,6 +40,15 @@ export function AddUserDialog() {
         const lastName = formData.get("lastName") as string;
         const dateOfBirth = formData.get("dateOfBirth") as string;
         const user = { firstName, lastName, dateOfBirth };
+
+        const validationResult = UserFormSchema.safeParse(user);
+
+        if (!validationResult.success) {
+            setErrors(validationResult.error.formErrors.fieldErrors);
+            return;
+        }
+        setErrors(null);
+
         mutate(user);
         handleClose();
     };
@@ -54,15 +71,20 @@ export function AddUserDialog() {
                     <TextField
                         name="firstName"
                         label="First Name"
+                        error={Boolean(errors?.firstName)}
+                        helperText={errors?.firstName?.[0]}
                     />
                     <TextField
                         name="lastName"
                         label="Last Name"
                         required
+                        error={Boolean(errors?.lastName)}
+                        helperText={errors?.lastName?.[0]}
                     />
                     <DatePicker
                         name="dateOfBirth"
                         label="Birth Date"
+                        maxDate={dayjs()}
                     />
                 </DialogContent>
                 <DialogActions>

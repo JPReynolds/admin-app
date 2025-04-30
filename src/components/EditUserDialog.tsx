@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ZodError } from "zod";
 import dayjs from "dayjs";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -10,9 +11,11 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import DialogActions from "@mui/material/DialogActions";
 import { UpdateUserPayload, User } from "../types";
 import { updateUser } from "../lib/api";
+import { UserFormSchema } from "../lib/validation";
 
 export function EditUserDialog({ user }: { user: User }) {
     const [isOpen, setIsOpen] = useState(false);
+    const [errors, setErrors] = useState<ZodError['formErrors']['fieldErrors'] | null>(null);
 
     const queryClient = useQueryClient();
     
@@ -32,7 +35,15 @@ export function EditUserDialog({ user }: { user: User }) {
         const firstName = formData.get("firstName") as string;
         const lastName = formData.get("lastName") as string;
         const dateOfBirth = formData.get("dateOfBirth") as string;
-        mutate({ id: user.id, firstName, lastName, dateOfBirth });
+        const userObj = { firstName, lastName, dateOfBirth };
+
+        const validationResult = UserFormSchema.safeParse(userObj);
+        if (!validationResult.success) {
+            setErrors(validationResult.error.formErrors.fieldErrors);
+            return;
+        }
+        setErrors(null);
+        mutate({ id: user.id, ...userObj });
         handleClose();
     };
 
@@ -55,17 +66,22 @@ export function EditUserDialog({ user }: { user: User }) {
                         name="firstName"
                         label="First Name"
                         defaultValue={user.firstName}
+                        error={Boolean(errors?.firstName)}
+                        helperText={errors?.firstName?.[0]}
                     />
                     <TextField
                         name="lastName"
                         label="Last Name"
                         required
                         defaultValue={user.lastName}
+                        error={Boolean(errors?.lastName)}
+                        helperText={errors?.lastName?.[0]}
                     />
                     <DatePicker
                         name="dateOfBirth"
                         label="Birth Date"
                         defaultValue={dayjs(user.dateOfBirth)}
+                        maxDate={dayjs()}
                     />
                 </DialogContent>
                 <DialogActions>
