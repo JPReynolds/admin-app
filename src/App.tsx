@@ -1,3 +1,4 @@
+import { UserList } from "./components/UserList";
 import "./App.css";
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
         <h1>Admin App</h1>
       </header>
       <main>
-        
+        <UserList />
       </main>
     </>
   );
