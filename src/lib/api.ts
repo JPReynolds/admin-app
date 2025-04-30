@@ -28,7 +28,7 @@ export async function createUser(userData: CreateUserPayload): Promise<User> {
     });
 
     if (!response.ok) {
-        throw new Error(`Failed to create user`);
+        throw new Error("Failed to create user");
     }
 
     const newUser = await response.json();
@@ -38,30 +38,30 @@ export async function createUser(userData: CreateUserPayload): Promise<User> {
 export async function updateUser(userData: UpdateUserPayload): Promise<User> {
     const { id, ...updateData } = userData;
     const response = await fetch(`https://example.com/user/${id}`, {
-      method: "PUT",
-      headers: {
+        method: "PUT",
+        headers: {
         "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updateData),
+        },
+        body: JSON.stringify(updateData),
     });
-  
+
     if (!response.ok) {
-      throw new Error(`Failed to update user`   );
+        throw new Error("Failed to update user");
     }
-  
+
     const updatedUser = await response.json();
     return updatedUser as User;
-  }
+}
   
-  export async function deleteUser(id: string): Promise<void> {
+export async function deleteUser(id: string): Promise<void> {
     const response = await fetch(`https://example.com/user/${id}`, {
-      method: "DELETE",
-      headers: {
+        method: "DELETE",
+        headers: {
         "Content-Type": "application/json",
-      },
+        },
     });
-  
+
     if (!response.ok) {
-      throw new Error(`Failed to delete user`);
+        throw new Error("Failed to delete user");
     }
-  }
+}
