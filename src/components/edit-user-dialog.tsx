@@ -84,7 +84,7 @@ export function EditUserDialog({ user }: { user: User }) {
                     />
                     <DatePicker
                         name="dateOfBirth"
-                        label="Birth Date"
+                        label="Date of Birth"
                         defaultValue={dayjs(user.dateOfBirth)}
                         maxDate={dayjs()}
                     />

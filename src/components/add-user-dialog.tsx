@@ -42,7 +42,6 @@ export function AddUserDialog() {
         const user = { firstName, lastName, dateOfBirth };
 
         const validationResult = UserFormSchema.safeParse(user);
-
         if (!validationResult.success) {
             setErrors(validationResult.error.formErrors.fieldErrors);
             return;
@@ -82,13 +81,12 @@ export function AddUserDialog() {
                     <TextField
                         name="lastName"
                         label="Last Name"
-                        required
                         error={Boolean(errors?.lastName)}
                         helperText={errors?.lastName?.[0]}
                     />
                     <DatePicker
                         name="dateOfBirth"
-                        label="Birth Date"
+                        label="Date of Birth"
                         maxDate={dayjs()}
                     />
                 </DialogContent>

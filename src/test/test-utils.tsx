@@ -2,6 +2,8 @@ import React from "react";
 import { render, RenderOptions } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 // Create a custom render function that includes providers
 function customRender(
@@ -19,7 +21,9 @@ function customRender(
   return render(ui, {
     wrapper: ({ children }) => (
       <QueryClientProvider client={queryClient}>
-        {children}
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          {children}
+        </LocalizationProvider>
       </QueryClientProvider>
     ),
     ...options,
