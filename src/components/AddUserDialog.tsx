@@ -4,6 +4,8 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import DialogActions from "@mui/material/DialogActions";
 
 export function AddUserDialog() {
     const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +16,8 @@ export function AddUserDialog() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
+        const formJson = Object.fromEntries(formData.entries());
+        console.log(formJson);
         handleClose();
     };
 
@@ -41,7 +45,15 @@ export function AddUserDialog() {
                         label="Last Name"
                         required
                     />
+                    <DatePicker
+                        name="birthDate"
+                        label="Birth Date"
+                    />
                 </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button type="submit">Add</Button>
+                </DialogActions>
             </Dialog>
         </>
     );
