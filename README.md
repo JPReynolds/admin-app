@@ -1,4 +1,37 @@
+# Interview Task
+
 Endpoints used to retrieve/manipulate mocked data are implemented using MSW library (https://mswjs.io/) and MSW data (https://github.com/mswjs/data).
+
+## Getting Started
+
+### Installation
+```bash
+yarn install
+```
+
+### Development
+To run the application in development mode:
+```bash
+yarn dev
+```
+This will start the development server at `http://localhost:5173`.
+
+### Building for Production
+To create a production build:
+```bash
+yarn build
+```
+
+To preview the production build locally:
+```bash
+yarn preview
+```
+
+### Testing
+To run the test suite:
+```bash
+yarn test
+```
 
 ## List of available BFF endpoints:
 
@@ -13,4 +46,5 @@ DELETE - https://example.com/user/:id - Delete a user
 - [ ] error handling
 - [ ] loading states
 - [ ] optimistic updates
-- [ ] some styling
+- [ ] display validation error for date picker
+- [ ] increase test coverage
