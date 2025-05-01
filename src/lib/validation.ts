@@ -5,9 +5,9 @@ export const UserFormSchema = z.object({
     firstName: z.string().optional().nullable(),
     lastName: z.string().min(1, "Last Name is required"),
     dateOfBirth: z.coerce.date()
-        .refine((date) => {
-            return dayjs(date).isBefore(dayjs()), {
+        .refine((date) => 
+            dayjs(date).isBefore(dayjs()), {
                 message: "Date of birth cannot be in the future"
             }
-        }),
+        ),
 });
